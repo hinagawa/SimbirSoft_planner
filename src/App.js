@@ -1,8 +1,10 @@
-import {Authentication} from "./pages/Authentication"
+import AuthPage from "./pages/AuthPage"
+import "./styles/globalStyle.css"
+
 function App() {
   return (
     <div className="App">
-      <Authentication />
+      <AuthPage />
     </div>
   )
 }
