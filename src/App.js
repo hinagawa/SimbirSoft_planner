@@ -1,11 +1,21 @@
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from "react-router-dom";
+import PrivateRoute from "./components/PrivateRouter";
+import SignInForm from "./components/SignInForm";
 import AuthPage from "./pages/AuthPage"
 import "./styles/globalStyle.css"
 
 function App() {
   return (
-    <div className="App">
-      <AuthPage />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={AuthPage} exact />
+        <PrivateRoute path="/main" component={SignInForm} />
+      </Switch>
+    </BrowserRouter>
   )
 }
 
