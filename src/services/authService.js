@@ -1,22 +1,24 @@
-import firebase from "firebase";
+import firebase from "firebase"
 
-const login = (email, password) => {
-    firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .catch(error => console.log(error))
-};
+const login = async (email, password) => {
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password)
+  } catch (error) {
+    throw error
+  }
+}
 
-const register = (email, password) => {
-    firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .catch(error => console.log(error))
+const register = async (email, password) => {
+  try {
+    await firebase.auth().createUserWithEmailAndPassword(email, password)
+  } catch (error) {
+    throw error
+  }
 }
 
 const authService = {
-    login,
-    register,
-};
+  login,
+  register
+}
 
-export default authService;
+export default authService
