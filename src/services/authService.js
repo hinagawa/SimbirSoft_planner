@@ -1,17 +1,27 @@
 import firebase from "firebase";
 
-const login = (email, password) => {
-    firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .catch(error => console.log(error))
-};
+async function login(email, password) {
+    return await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(data => {
+            return data.user.email
+        })
+        .catch((error) => {
+            throw error;
+        })
+}
 
-const register = (email, password) => {
-    firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .catch(error => console.log(error))
+async function register(email, password) {
+    return await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(data => {
+            return data.user.email
+        })
+        .catch((error) => {
+            throw error;
+        })
 }
 
 const authService = {
