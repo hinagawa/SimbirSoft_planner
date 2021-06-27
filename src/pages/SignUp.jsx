@@ -6,7 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import Box from "@material-ui/core/Box"
 import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
-import {useCallback, useContext} from "react"
+import {useCallback, useContext, useState} from "react"
 import {Redirect, useHistory} from "react-router-dom"
 import Avatar from "@material-ui/core/Avatar"
 import Button from "@material-ui/core/Button"
@@ -18,6 +18,7 @@ import authService from "../services/authService"
 import {AuthContext} from "../Context/Auth"
 
 import firebase from "firebase"
+import {useEffect} from "react"
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -54,18 +55,24 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 export const SignUp = () => {
+  const [userData, setUserData] = useState(null)
   const history = useHistory()
   const {currentUser} = useContext(AuthContext)
+
   const handleSignUp = useCallback(
     async event => {
       event.preventDefault()
-      const {email, password} = event.target.elements
+      // const data = event.target.elements
+      const {email, password, userName} = event.target.elements
       try {
-        await authService.register(email.value, password.value)
-        const uid = currentUser ? currentUser.uid : null
-        await firebase.database().ref(`/users/${uid}/info`).set({
-          id: 1000
-        })
+        const serviceParams = {
+          email: email.value,
+          password: password.value,
+          name: userName.value
+        }
+        setUserData(serviceParams)
+        await authService.register(serviceParams)
+
         history.push("/calendar")
       } catch (error) {
         alert(error)
@@ -73,6 +80,16 @@ export const SignUp = () => {
     },
     [history]
   )
+  const uid = currentUser ? currentUser.uid : null
+  useEffect(() => {
+    if (uid) {
+      console.log(uid)
+      async function fetchUserById() {
+        await authService.setUserDataById(userData, uid)
+      }
+      fetchUserById()
+    }
+  }, [uid])
 
   const classes = useStyles()
   return (
@@ -96,6 +113,17 @@ export const SignUp = () => {
             label="Почта"
             name="email"
             autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="userName"
+            label="Имя пользователя"
+            name="userName"
+            autoComplete="login"
             autoFocus
           />
           <TextField
