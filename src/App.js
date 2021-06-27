@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 // import PrivateRoute from "./components/PrivateRouter";
 import AuthPage from "./pages/AuthPage"
+import MainPage from "./pages/MainPage";
 import "./styles/globalStyle.css"
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" component={AuthPage} exact />
-        {/* <PrivateRoute path="/main" component={MainPage} /> */}
+        <Route path="/main" component={MainPage} exact />
       </Switch>
     </BrowserRouter>
   )
