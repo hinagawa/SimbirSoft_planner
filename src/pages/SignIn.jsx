@@ -17,7 +17,6 @@ import {makeStyles} from "@material-ui/core/styles"
 import authService from "../services/authService"
 import {AuthContext} from "../Context/Auth"
 
-import firebase from "firebase"
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -53,19 +52,16 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   }
 }))
-export const SignUp = () => {
+
+export const SignIn = () => {
   const history = useHistory()
-  const {currentUser} = useContext(AuthContext)
-  const handleSignUp = useCallback(
+
+  const onSubmit = useCallback(
     async event => {
       event.preventDefault()
       const {email, password} = event.target.elements
       try {
-        await authService.register(email.value, password.value)
-        const uid = currentUser ? currentUser.uid : null
-        await firebase.database().ref(`/users/${uid}/info`).set({
-          id: 1000
-        })
+        await authService.login(email.value, password.value)
         history.push("/calendar")
       } catch (error) {
         alert(error)
@@ -75,6 +71,11 @@ export const SignUp = () => {
   )
 
   const classes = useStyles()
+  const {currentUser} = useContext(AuthContext)
+
+  if (currentUser) {
+    return <Redirect to="/calendar" />
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -84,9 +85,9 @@ export const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Зарегистрироваться
+          Вход
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSignUp}>
+        <form className={classes.form} noValidate onSubmit={onSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -117,11 +118,18 @@ export const SignUp = () => {
             color="primary"
             className={classes.submit}
           >
-            Зарегистрироваться
+            Войти
           </Button>
         </form>
       </div>
-
+      <Grid container>
+        <Grid item>
+          Нет аккаунта? &nbsp;
+          <Link to="/signup" variant="body2">
+            {"Зарегистрироваться"}
+          </Link>
+        </Grid>
+      </Grid>
       <Box mt={8}>
         <Copyright />
       </Box>
@@ -129,4 +137,4 @@ export const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignIn
