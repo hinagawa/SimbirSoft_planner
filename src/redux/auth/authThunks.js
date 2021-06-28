@@ -1,11 +1,12 @@
 import authService from "../../services/authService"
-import { loginAction } from "./reducer";
+import authActions from "./authActions";
 
 export function login(email, password) {
     return async (dispatch) => {authService.login(email, password)
     .then(
         (user) => {
-            dispatch(loginAction(user))
+            console.log(authActions)
+            dispatch(authActions.loginAction(user))
         }
     )
     .catch(
@@ -20,7 +21,7 @@ export function register(email, password) {
     return async (dispatch) => {authService.register(email, password)
     .then(
         (user) => {
-            dispatch(loginAction(user))
+            // dispatch(loginAction(user))
         }
     )
     .catch(

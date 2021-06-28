@@ -1,13 +1,15 @@
 import { useState} from "react"
-import authService from "../../services/authService"
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth/authThunks";
 
 export const SignInForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const dispatch = useDispatch();
 
   const onSubmit = e => {
     e.preventDefault()
-    authService.login(email, password);
+    dispatch(login(email, password));
   }
 
   return (

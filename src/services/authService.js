@@ -5,7 +5,9 @@ async function login(email, password) {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(data => {
-            return data.user.email
+            console.log("data from response")
+            console.log(data.user.email)
+            return {email: data.user.email}
         })
         .catch((error) => {
             throw error;
