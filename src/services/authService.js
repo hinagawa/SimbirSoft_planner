@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "firebase"
 
 async function login(email, password) {
     return await firebase
@@ -6,8 +6,8 @@ async function login(email, password) {
         .signInWithEmailAndPassword(email, password)
         .then(data => {
             console.log("data from response")
-            console.log(data.user.email)
-            return {email: data.user.email}
+            console.log(data.user)
+            return {id: data.user.uid}
         })
         .catch((error) => {
             throw error;
@@ -19,16 +19,60 @@ async function register(email, password) {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(data => {
-            return data.user.email
+            return {id: data.user.uid}
         })
         .catch((error) => {
             throw error;
         })
+    }
+// -------- АВТОРИЗАЦИЯ/РЕГИСТРАЦИЯ ---------------
+// const login = async (email, password) => {
+//   try {
+//     await firebase.auth().signInWithEmailAndPassword(email, password)
+//   } catch (error) {
+//     throw error
+//   }
+// }
+
+// const register = async ({email, password}) => {
+//   try {
+//     await firebase.auth().createUserWithEmailAndPassword(email, password)
+//   } catch (error) {
+//     throw error
+//   }
+// }
+
+//------- ЗАПРОСЫ ПО ЮЗЕРУ  --------------
+
+// Установка
+const setUserDataById = async (userData, id) => {
+  await firebase
+    .database()
+    .ref(`/users/${id}/info`)
+    .set({
+      ...userData,
+      id
+    })
+}
+
+// Получение юзера
+const getUserDataById = async id => {
+  try {
+    // Если нужен запрос по id, то добавьте в url:    ${id}/info
+    const res = await firebase.database().ref(`/users/`).once("value")
+    const user = res.val()
+    return user
+  } catch (error) {
+    console.log(error.message)
+    throw error
+  }
 }
 
 const authService = {
-    login,
-    register,
-};
+  login,
+  register,
+  setUserDataById,
+  getUserDataById,
+}
 
-export default authService;
+export default authService

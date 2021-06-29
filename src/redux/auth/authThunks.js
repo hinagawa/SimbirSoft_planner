@@ -21,7 +21,7 @@ export function register(email, password) {
     return async (dispatch) => {authService.register(email, password)
     .then(
         (user) => {
-            // dispatch(loginAction(user))
+            dispatch(authActions.registerAction(user))
         }
     )
     .catch(
