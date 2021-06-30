@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
+import { TextField } from '@material-ui/core';
+import { flexbox } from '@material-ui/system';
 
 function getModalStyle() {
 
@@ -52,10 +54,14 @@ class AddLessonModel extends React.Component {
         >
           <div style={getModalStyle()} className={classes.paper}>
             <Typography variant="h6" id="modal-title">
-              Text in a modal
+              Добавьте название категории
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <form className={classes.root} noValidate autoComplete="off" style={{"display":"flex", "flex-direction":"column"}}>
+              <TextField id="standard-basic" />
+              <TextField id="standard-basic" label="Дата занятия"/>
+              <Button variant="contained" size="large" color="primary" onClick={this.handleClose} style={{"margin-top":"10px"}}>Добавить</Button>
+              </form>
             </Typography>
           </div>
         </Modal>

@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Chip, Avatar } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
 import AddLessonModelWrapper from '../AddLessonModel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import Button from '@material-ui/core/Button';
 
 const drawerWidth = 240;
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  // necessary for content to be below app bar
-//   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
   },
@@ -46,8 +48,17 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-
 function ResponsiveDrawer(props) {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -59,16 +70,13 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-        <AddLessonModelWrapper />
+      <AddLessonModelWrapper />
       <div className={classes.toolbar} />
       <Divider />
       <List>
         {['Математика', 'Музыка', 'Русский', 'Изо'].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemText primary={text} />
-            <IconButton aria-label="delete" className={classes.margin}>
-          <DeleteIcon fontSize="small" />
-        </IconButton>
+            <Chip variant="outlined" color="primary" onDelete={handleClickOpen} avatar={<Avatar>{text[0]}</Avatar>} label={text} />
           </ListItem>
         ))}
       </List>
@@ -79,9 +87,27 @@ function ResponsiveDrawer(props) {
 
   return (
     <div className={classes.root}>
-      {/* <CssBaseline /> */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Вы действительно хотите удалить данную категорию? Все занятия также будут удалены.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Да
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Нет
+          </Button>
+        </DialogActions>
+      </Dialog>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
@@ -93,7 +119,7 @@ function ResponsiveDrawer(props) {
               paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}
           >
             {drawer}
@@ -116,10 +142,6 @@ function ResponsiveDrawer(props) {
 }
 
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
