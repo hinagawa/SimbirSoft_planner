@@ -45,10 +45,10 @@ export const CalendarPage = () => {
       <button onClick={() => firebase.auth().signOut()}>Sign out</button> */}
       <div className="mainPage">
       <Grid container direction="row" justify="flex-start" alignItems="flex-start">
-        <Grid item>
+        <Grid item xs={2}>
             <ResponsiveDrawer />
         </Grid>
-        <Grid item xs>
+        <Grid item xs={8}>
             <Search />
         </Grid>
       </Grid>

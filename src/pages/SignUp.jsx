@@ -15,6 +15,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import authService from "../services/authService";
 import {AuthContext} from "../Context/auth";
 import {useEffect} from "react";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/auth/authThunks";
 
 function Copyright() {
   return (
@@ -52,6 +54,7 @@ export const SignUp = () => {
   const [userData, setUserData] = useState(null)
   const history = useHistory()
   const {currentUser} = useContext(AuthContext)
+  const dispatch = useDispatch()
 
   const handleSignUp = useCallback(
     async event => {
@@ -65,7 +68,7 @@ export const SignUp = () => {
           name: userName.value
         }
         setUserData(serviceParams)
-        await authService.register(serviceParams)
+        dispatch(register(serviceParams))
 
         history.push("/calendar")
       } catch (error) {

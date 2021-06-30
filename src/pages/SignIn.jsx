@@ -12,10 +12,12 @@ import Avatar from "@material-ui/core/Avatar"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
+import { login } from "../redux/auth/authThunks";
 
 import {makeStyles} from "@material-ui/core/styles"
 import authService from "../services/authService"
 import {AuthContext} from "../Context/auth"
+import { useDispatch } from "react-redux"
 
 function Copyright() {
   return (
@@ -52,13 +54,14 @@ const useStyles = makeStyles(theme => ({
 
 export const SignIn = () => {
   const history = useHistory()
+  const dispatch = useDispatch();
 
   const onSubmit = useCallback(
     async event => {
       event.preventDefault()
       const {email, password} = event.target.elements
       try {
-        await authService.login(email.value, password.value)
+        dispatch(login(email.value, password.value))
         history.push("/calendar")
       } catch (error) {
         alert(error)
@@ -70,9 +73,9 @@ export const SignIn = () => {
   const classes = useStyles()
   const {currentUser} = useContext(AuthContext)
 
-  if (currentUser) {
-    return <Redirect to="/calendar" />
-  }
+  // if (currentUser) {
+  //   return <Redirect to="/calendar" />
+  // }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

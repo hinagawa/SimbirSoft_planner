@@ -3,7 +3,7 @@ import lessonActions from "./lessonActions";
 
 export function createLesson(data, id) {
     return async (dispatch) => {
-        lessonService.createFetchCategoryById(data, id)
+        lessonService.createFetchLessonById(data, id)
         .then(
             (lesson) => {
                 dispatch(lessonActions.createLessonAction(lesson))
@@ -22,7 +22,7 @@ export function getLessons(id) {
         lessonService.getFetchLessonById(id)
         .then(
             (lessons) => {
-                lessonActions.setLessonsAction(lessons)
+                dispatch(lessonActions.setLessonsAction(lessons))
             }
         )
         .catch(
