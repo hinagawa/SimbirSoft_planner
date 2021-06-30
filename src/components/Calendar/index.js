@@ -13,7 +13,7 @@ function Calendar(events) {
     const ref = React.createRef();
     return (
         <div className="calendar__container">
-            <div  ref={ref}>
+            <div ref={ref}>
                 <FullCalendar
                     plugins={[dayGridPlugin]}
                     initialView="dayGridMonth"
@@ -22,7 +22,7 @@ function Calendar(events) {
                     events={events}
                 />
             </div>
-            <ReactToPdf targetRef={ref} filename="calendar.pdf">
+            <ReactToPdf targetRef={ref} filename="calendar.pdf"  className="react-pdf__Page__canvas">
                 {({ toPdf }) => (
                     <Button variant="outlined" onClick={toPdf} size="large" color="primary" style={{ "margin": "10px 0px 10px 92%" }}>Экспорт</Button>
                 )}

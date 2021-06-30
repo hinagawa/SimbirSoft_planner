@@ -1,8 +1,8 @@
 import { Grid } from "@material-ui/core";
-import ResponsiveDrawer from "../../components/Sidebar";
+import ResponsiveDrawer from "../components/Sidebar";
 import React from "react";
-import Search from "../../components/Search";
-import Calendar from "../../components/Calendar";
+import Search from "../components/Search";
+import Calendar from "../components/Calendar";
 
 export const MainPage = () => {
   const events = [

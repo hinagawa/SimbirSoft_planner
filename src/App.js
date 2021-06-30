@@ -3,19 +3,28 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-// import PrivateRoute from "./components/PrivateRouter";
-import AuthPage from "./pages/AuthPage"
-import MainPage from "./pages/MainPage";
+// import AuthPage from "./pages/AuthPage"
+import MainPage from "./pages/Main";
+
+import SignIn from "./pages/SignIn"
+// import { CalendarPage } from "./pages/CalendarPage"
+import { AuthProvider } from "./Context/Auth"
+import PrivateRoute from "./components/PrivateRoute"
 import "./styles/globalStyle.css"
+import SignUp from "./pages/SignUp"
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" component={AuthPage} exact />
-        <Route path="/main" component={MainPage} exact />
-      </Switch>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={SignIn} exact />
+          <Route path="/signup" component={SignUp} exact />
+          {/* <Route path="/calendar" component={CalendarPage} exact /> */}
+          <PrivateRoute path="/main" exact component={MainPage} />
+        </Switch>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 

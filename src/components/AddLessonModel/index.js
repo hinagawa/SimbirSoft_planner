@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
-import { flexbox } from '@material-ui/system';
 
 function getModalStyle() {
 
@@ -74,7 +73,6 @@ AddLessonModel.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-// We need an intermediary variable for handling the recursive nesting.
 const AddLessonModelWrapper = withStyles(styles)(AddLessonModel);
 
 export default AddLessonModelWrapper;
