@@ -20,7 +20,7 @@ const getFetchCategoryById = async id => {
         (await firebase
           .database()
           .ref(`/users/${id}/categories`)
-          .set({...data})
+          .set(data)
           .val()) || {}
       return res
     } catch (error) {
@@ -36,20 +36,24 @@ const getFetchCategoryById = async id => {
         .ref(`/users/${id}/lessons`)
         .once("value")
       const lessons = res.val() || {}
-      return lessons
+      return Object.keys(lessons).map(key => ({
+        ...lessons[key],
+        id: key
+      }))
     } catch (error) {
       throw error
     }
   }
-  const createFetchLessonById = async (data, id) => {
+  const createFetchLessonById = async (
+    {category, description, date, status},
+    id
+  ) => {
     try {
-      const res =
-        (await firebase
-          .database()
-          .ref(`/users/${id}/lessons`)
-          .set({...data})
-          .val()) || {}
-      return res
+      const res = await firebase
+        .database()
+        .ref(`/users/${id}/lessons`)
+        .push({category, description, date, status})
+      return {category, description, date, status, id: res.key}
     } catch (error) {
       throw error
     }
@@ -59,7 +63,7 @@ const getFetchCategoryById = async id => {
     getFetchCategoryById,
     createFetchCategoryById,
     getFetchLessonById,
-    createFetchLessonById
+    createFetchLessonById,
   }
 
   export default lessonService;

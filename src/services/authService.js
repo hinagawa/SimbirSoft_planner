@@ -1,46 +1,21 @@
 import firebase from "firebase"
 
-async function login(email, password) {
-    return await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(data => {
-            console.log("data from response")
-            console.log(data.user)
-            return {id: data.user.uid}
-        })
-        .catch((error) => {
-            throw error;
-        })
+// -------- АВТОРИЗАЦИЯ/РЕГИСТРАЦИЯ ---------------
+const login = async (email, password) => {
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password)
+  } catch (error) {
+    throw error
+  }
 }
 
-async function register(email, password) {
-    return await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(data => {
-            return {id: data.user.uid}
-        })
-        .catch((error) => {
-            throw error;
-        })
-    }
-// -------- АВТОРИЗАЦИЯ/РЕГИСТРАЦИЯ ---------------
-// const login = async (email, password) => {
-//   try {
-//     await firebase.auth().signInWithEmailAndPassword(email, password)
-//   } catch (error) {
-//     throw error
-//   }
-// }
-
-// const register = async ({email, password}) => {
-//   try {
-//     await firebase.auth().createUserWithEmailAndPassword(email, password)
-//   } catch (error) {
-//     throw error
-//   }
-// }
+const register = async ({email, password}) => {
+  try {
+    await firebase.auth().createUserWithEmailAndPassword(email, password)
+  } catch (error) {
+    throw error
+  }
+}
 
 //------- ЗАПРОСЫ ПО ЮЗЕРУ  --------------
 
