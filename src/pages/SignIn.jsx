@@ -15,7 +15,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 
 import {makeStyles} from "@material-ui/core/styles"
 import authService from "../services/authService"
-import {AuthContext} from "../Context/Auth"
+import {AuthContext} from "../Context/auth"
 
 function Copyright() {
   return (

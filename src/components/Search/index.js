@@ -31,12 +31,14 @@ function Search(props) {
   const { classes } = props;
 
   return (
+    <div className="container">
     <Paper className={classes.root} elevation={1}>
       <InputBase className={classes.input} placeholder="Search..." />
       <IconButton className={classes.iconButton} aria-label="Search">
         <SearchIcon />
       </IconButton>
     </Paper>
+    </div>
   );
 }
 

@@ -44,7 +44,7 @@ class AddLessonModel extends React.Component {
 
     return (
       <div>
-        <Button variant="contained" size="large" color="primary" onClick={this.handleOpen} style={{"margin":"10px 0px 10px 55px"}}>Добавить</Button>
+        <Button variant="contained" size="large" color="primary" onClick={this.handleOpen} style={{ "margin": "10px 0px 10px 55px" }}>Добавить</Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -56,10 +56,19 @@ class AddLessonModel extends React.Component {
               Добавьте название категории
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
-            <form className={classes.root} noValidate autoComplete="off" style={{"display":"flex", "flex-direction":"column"}}>
-              <TextField id="standard-basic" />
-              <TextField id="standard-basic" label="Дата занятия"/>
-              <Button variant="contained" size="large" color="primary" onClick={this.handleClose} style={{"margin-top":"10px"}}>Добавить</Button>
+              <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }}>
+                <TextField id="standard-basic" />
+                <TextField
+                  id="date"
+                  label="Birthday"
+                  type="date"
+                  defaultValue="2017-05-24"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <Button variant="contained" size="large" color="primary" onClick={this.handleClose} style={{ "margin-top": "10px" }}>Добавить</Button>
               </form>
             </Typography>
           </div>
