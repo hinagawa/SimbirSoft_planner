@@ -34,7 +34,7 @@ class AddLessonModel extends React.Component {
     category: "",
     description: "",
     status: "wait",
-    date: ""
+    date: "2021-07-02T10:30"
   };
 
   handleOpen = () => {
@@ -101,7 +101,9 @@ class AddLessonModel extends React.Component {
                   id="datetime-local"
                   label="Next appointment"
                   type="datetime-local"
-                  defaultValue="2021-05-24T10:30"
+                  value={this.state.date}
+                  name="date"
+                  onChange={this.handleChange}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true
