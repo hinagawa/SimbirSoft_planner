@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+
 import { createLesson } from '../../redux/lesson/lessonThunk';
 
 function getModalStyle() {
-
   return {
     top: `50%`,
     left: `50%`,
@@ -47,17 +47,12 @@ class AddLessonModel extends React.Component {
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name] : value})
+    this.setState({ [name]: value });
   };
-  // const mapDispatchToProps = (dispatch, ownProps) => {
-  //   return {
-  //     toggleTodo: () => dispatch(toggleTodo(ownProps.todoId))
-  //   }
-  // }
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.dispatch(createLesson({ category: this.state.category, description: this.state.description, date: this.state.date, status: "visited"}, this.props.uid))
+    this.props.dispatch(createLesson({ category: this.state.category, description: this.state.description, date: this.state.date, status: "visited" }, this.props.uid));
     this.setState({ open: false });
   }
 
@@ -75,23 +70,21 @@ class AddLessonModel extends React.Component {
         >
           <div style={getModalStyle()} className={classes.paper}>
             <Typography variant="h6" id="modal-title">
-              Создание занятия
+              Создание
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
               <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }} onSubmit={this.onSubmit}>
-              <br/>
+                <br />
                 <TextField id="standard-basic" placeholder="Название категории" value={this.state.category} onChange={this.handleChange} name="category" />
-                <br/>
+                <br />
                 <TextField id="standard-basic" placeholder="Описание" value={this.state.description} onChange={this.handleChange} name="description" />
-                <br/>
+                <br />
                 <TextField
-                  id="date"
-                  label="Дата"
-                  name="date"
-                  type="date"
-                  value={this.state.date}
+                  id="datetime-local"
+                  label="Next appointment"
+                  type="datetime-local"
+                  defaultValue="2017-05-24T10:30"
                   className={classes.textField}
-                  onChange={this.handleChange}
                   InputLabelProps={{
                     shrink: true,
                   }}

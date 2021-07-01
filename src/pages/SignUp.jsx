@@ -1,24 +1,24 @@
-import React from "react";
-// import {Link} from "react-router-dom"
+import React, { useEffect, useCallback, useContext, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import {useCallback, useContext, useState} from "react";
-import {useHistory} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import {FormControlLabel, Checkbox} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-import {makeStyles} from "@material-ui/core/styles";
 import authService from "../services/authService";
-import {AuthContext} from "../Context/auth";
-import {useEffect} from "react";
-import { useDispatch } from "react-redux";
+import { AuthContext } from "../Context/auth";
 import { register } from "../redux/auth/authThunks";
 
 function Copyright() {
+
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
@@ -26,7 +26,6 @@ function Copyright() {
         Планировщик занятий
       </a>{" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   )
 }
@@ -49,18 +48,18 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2)
   }
-}))
+}));
+
 export const SignUp = () => {
-  const [userData, setUserData] = useState(null)
-  const history = useHistory()
-  const {currentUser} = useContext(AuthContext)
-  const dispatch = useDispatch()
+  const [userData, setUserData] = useState(null);
+  const history = useHistory();
+  const { currentUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const handleSignUp = useCallback(
     async event => {
       event.preventDefault()
-      // const data = event.target.elements
-      const {email, password, userName} = event.target.elements
+      const { email, password, userName } = event.target.elements;
       try {
         const serviceParams = {
           email: email.value,
@@ -76,8 +75,8 @@ export const SignUp = () => {
       }
     },
     [history]
-  )
-  const uid = currentUser ? currentUser.uid : null
+  );
+  const uid = currentUser ? currentUser.uid : null;
   useEffect(() => {
     if (uid) {
       console.log(uid)
@@ -86,13 +85,12 @@ export const SignUp = () => {
       }
       fetchUserById()
     }
-  }, [uid])
+  }, [uid]);
 
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -117,24 +115,33 @@ export const SignUp = () => {
             margin="normal"
             required
             fullWidth
-            id="userName"
-            label="Имя пользователя"
-            name="userName"
-            autoComplete="login"
-            autoFocus
+            name="password"
+            label="Пароль"
+            type="password"
+            id="password"
+            inputProps={{ maxLength: 20 }}
           />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Пароль"
+            name="rep-password"
+            label="Повторите пароль"
             type="password"
-            id="password"
-            autoComplete="current-password"
+            id="rep-password"
+            inputProps={{ maxLength: 20 }}
           />
-
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="checkedB"
+                color="primary"
+              />
+            }
+            label="Запомнить меня"
+          />
+          <Link to="/">Уже есть аккаунт</Link>
           <Button
             type="submit"
             fullWidth
@@ -146,7 +153,6 @@ export const SignUp = () => {
           </Button>
         </form>
       </div>
-
       <Box mt={8}>
         <Copyright />
       </Box>
@@ -154,4 +160,4 @@ export const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignUp;

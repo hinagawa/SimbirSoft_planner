@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -7,18 +9,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { Chip, Avatar } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AddLessonModel from '../AddLessonModel';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
-import { useDispatch, useSelector } from 'react-redux';
+
+import AddLessonModel from '../AddLessonModel';
 import { AuthContext } from '../../Context/auth';
 
 const drawerWidth = 240;
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +50,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
+
 function ResponsiveDrawer(props) {
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -65,14 +67,14 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const categories = useSelector((state) => state.lessonReducer.category)
+  const categories = useSelector((state) => state.lessonReducer.category);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const {currentUser} = useContext(AuthContext)
-  const uid = currentUser ? currentUser.uid : null
+  const { currentUser } = useContext(AuthContext);
+  const uid = currentUser ? currentUser.uid : null;
   const dispatch = useDispatch();
 
 
@@ -82,7 +84,7 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {categories? categories.map((text, index) => (
+        {categories ? categories.map((text, index) => (
           <ListItem button key={text}>
             <Chip variant="outlined" color="primary" onDelete={handleClickOpen} avatar={<Avatar>{text[0]}</Avatar>} label={text} />
           </ListItem>
