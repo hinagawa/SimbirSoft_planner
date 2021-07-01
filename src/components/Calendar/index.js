@@ -33,7 +33,6 @@ function Calendar(events) {
                 />
             </div>
             <Button variant="outlined" size="large" color="primary" style={{ "margin": "10px 0px 10px 92%" }}>Экспорт</Button>
-
         </div >
     )
 }

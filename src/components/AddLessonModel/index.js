@@ -31,7 +31,7 @@ const styles = theme => ({
 class AddLessonModel extends React.Component {
   state = {
     open: false,
-    category: "",
+    title: "",
     description: "",
     status: "wait",
     date: "2021-07-02T10:30"
@@ -55,7 +55,7 @@ class AddLessonModel extends React.Component {
     this.props.dispatch(
       createLesson(
         {
-          category: this.state.category,
+          title: this.state.title,
           description: this.state.description,
           date: this.state.date,
           status: "visited"
@@ -93,7 +93,7 @@ class AddLessonModel extends React.Component {
             <Typography variant="subtitle1" id="simple-modal-description">
               <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }} onSubmit={this.onSubmit}>
                 <br />
-                <TextField id="standard-basic" placeholder="Название категории" value={this.state.category} onChange={this.handleChange} name="category" />
+                <TextField id="standard-basic" placeholder="Название категории" value={this.state.title} onChange={this.handleChange} name="title" />
                 <br />
                 <TextField id="standard-basic" placeholder="Описание" value={this.state.description} onChange={this.handleChange} name="description" />
                 <br />

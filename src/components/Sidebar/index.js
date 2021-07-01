@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 function ResponsiveDrawer(props) {
 
   const [open, setOpen] = React.useState(false);
-  const [category, setCategory] = useState('');
+  const [title, setCategory] = useState('');
 
   const handleClickOpen = (text) => {
     setOpen(true);
@@ -70,7 +70,7 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const categories = useSelector((state) => state.lessonReducer.category);
+  const categories = useSelector((state) => state.lessonReducer.title);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -81,7 +81,7 @@ function ResponsiveDrawer(props) {
   const dispatch = useDispatch();
 
   const deleteText = () => {
-    dispatch(deleteCategory(category));
+    dispatch(deleteCategory(title));
     setOpen(false);
   }
 
