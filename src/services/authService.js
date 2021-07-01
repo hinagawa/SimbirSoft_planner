@@ -1,4 +1,4 @@
-import firebase from "firebase"
+import firebase from "firebase";
 
 // -------- АВТОРИЗАЦИЯ/РЕГИСТРАЦИЯ ---------------
 async function login(email, password) {
@@ -38,7 +38,7 @@ const setUserDataById = async (userData, id) => {
       ...userData,
       id
     })
-}
+};
 
 // Получение юзера
 const getUserDataById = async id => {
@@ -51,13 +51,13 @@ const getUserDataById = async id => {
     console.log(error.message)
     throw error
   }
-}
+};
 
 const authService = {
   login,
   register,
   setUserDataById,
   getUserDataById,
-}
+};
 
-export default authService
+export default authService;

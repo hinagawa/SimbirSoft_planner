@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,8 +15,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
 
-import AddLessonModel from '../AddLessonModel';
+import { deleteCategory } from '../../redux/lesson/lessonThunk';
 import { AuthContext } from '../../Context/auth';
+import AddLessonModel from '../AddLessonModel';
 
 const drawerWidth = 240;
 
@@ -54,10 +55,12 @@ const useStyles = makeStyles((theme) => ({
 function ResponsiveDrawer(props) {
 
   const [open, setOpen] = React.useState(false);
+  const [category, setCategory] = useState('');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (text) => {
     setOpen(true);
-  };
+    setCategory(text)
+  };;
 
   const handleClose = () => {
     setOpen(false);
@@ -77,6 +80,10 @@ function ResponsiveDrawer(props) {
   const uid = currentUser ? currentUser.uid : null;
   const dispatch = useDispatch();
 
+  const deleteText = () => {
+    dispatch(deleteCategory(category));
+    setOpen(false);
+  }
 
   const drawer = (
     <div>
@@ -86,7 +93,7 @@ function ResponsiveDrawer(props) {
       <List>
         {categories ? categories.map((text, index) => (
           <ListItem button key={text}>
-            <Chip variant="outlined" color="primary" onDelete={handleClickOpen} avatar={<Avatar>{text[0]}</Avatar>} label={text} />
+            <Chip variant="outlined" color="primary" onDelete={() => handleClickOpen(text)} avatar={<Avatar>{text[0]}</Avatar>} label={text} />
           </ListItem>
         )) : <ListItem>Нет занятий</ListItem>}
       </List>
@@ -109,7 +116,7 @@ function ResponsiveDrawer(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={deleteText} color="primary">
             Да
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
