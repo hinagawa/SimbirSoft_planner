@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { createLesson } from '../../redux/lesson/lessonThunk';
 
 function getModalStyle() {
 
@@ -29,6 +31,10 @@ const styles = theme => ({
 class AddLessonModel extends React.Component {
   state = {
     open: false,
+    category: '',
+    description: '',
+    status: 'wait',
+    date: "2021-07-02",
   };
 
   handleOpen = () => {
@@ -38,6 +44,22 @@ class AddLessonModel extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name] : value})
+  };
+  // const mapDispatchToProps = (dispatch, ownProps) => {
+  //   return {
+  //     toggleTodo: () => dispatch(toggleTodo(ownProps.todoId))
+  //   }
+  // }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.dispatch(createLesson({ category: this.state.category, description: this.state.description, date: this.state.date, status: "visited"}, this.props.uid))
+    this.setState({ open: false });
+  }
 
   render() {
     const { classes } = this.props;
@@ -56,19 +78,25 @@ class AddLessonModel extends React.Component {
               Добавьте название категории
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
-              <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }}>
-                <TextField id="standard-basic" />
+              <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }} onSubmit={this.onSubmit}>
+              <br/>
+                <TextField id="standard-basic" placeholder="category" value={this.state.category} onChange={this.handleChange} name="category" />
+                <br/>
+                <TextField id="standard-basic" placeholder="description" value={this.state.description} onChange={this.handleChange} name="description" />
+                <br/>
                 <TextField
                   id="date"
-                  label="Birthday"
+                  label="Date"
+                  name="date"
                   type="date"
-                  defaultValue="2017-05-24"
+                  value={this.state.date}
                   className={classes.textField}
+                  onChange={this.handleChange}
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
-                <Button variant="contained" size="large" color="primary" onClick={this.handleClose} style={{ "margin-top": "10px" }}>Добавить</Button>
+                <Button variant="contained" size="large" color="primary" type="submit" style={{ "margin-top": "10px" }}>Добавить</Button>
               </form>
             </Typography>
           </div>
