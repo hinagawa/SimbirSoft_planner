@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
+
+import firebase from 'firebase';
 
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -55,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
 function ResponsiveDrawer(props) {
 
   const [open, setOpen] = React.useState(false);
-  const [title, setCategory] = useState('');
+  const [category, setCategory] = useState('');
+  const history = useHistory();
 
   const handleClickOpen = (text) => {
     setOpen(true);
@@ -70,7 +74,7 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const categories = useSelector((state) => state.lessonReducer.title);
+  const categories = useSelector((state) => state.lessonReducer.category);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -81,10 +85,14 @@ function ResponsiveDrawer(props) {
   const dispatch = useDispatch();
 
   const deleteText = () => {
-    dispatch(deleteCategory(title));
+    dispatch(deleteCategory(category));
     setOpen(false);
   }
 
+  function signOut() {
+    firebase.auth().signOut();
+    history.push("/");
+  }
   const drawer = (
     <div>
       <AddLessonModel uid={uid} dispatch={dispatch} />
@@ -97,7 +105,10 @@ function ResponsiveDrawer(props) {
           </ListItem>
         )) : <ListItem>Нет занятий</ListItem>}
       </List>
-    </div>
+      <Button onClick={signOut} color="primary" >
+        Выйти
+      </Button>
+    </div >
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
