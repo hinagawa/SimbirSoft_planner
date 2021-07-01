@@ -68,7 +68,7 @@ export const SignUp = () => {
         setUserData(serviceParams)
         dispatch(register(serviceParams))
 
-        history.push("/calendar")
+        history.push("/")
       } catch (error) {
         alert(error)
       }

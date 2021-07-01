@@ -18,15 +18,15 @@ const getFetchLessonById = async id => {
 };
 
 const createFetchLessonById = async (
-  {title, description, date, status},
+  {category, description, date, status},
   id
 ) => {
   try {
     const res = await firebase
       .database()
       .ref(`/users/${id}/lessons`)
-      .push({title, description, date, status})
-    return {title, description, date, status, id: res.key}
+      .push({category, description, date, status})
+    return {category, description, date, status, id: res.key}
   } catch (error) {
     throw error;
   }

@@ -31,10 +31,10 @@ const styles = theme => ({
 class AddLessonModel extends React.Component {
   state = {
     open: false,
-    title: "",
+    category: "",
     description: "",
     status: "wait",
-    date: "2021-07-02T10:30"
+    date: ""
   };
 
   handleOpen = () => {
@@ -55,7 +55,7 @@ class AddLessonModel extends React.Component {
     this.props.dispatch(
       createLesson(
         {
-          title: this.state.title,
+          category: this.state.category,
           description: this.state.description,
           date: this.state.date,
           status: "visited"
@@ -93,7 +93,7 @@ class AddLessonModel extends React.Component {
             <Typography variant="subtitle1" id="simple-modal-description">
               <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }} onSubmit={this.onSubmit}>
                 <br />
-                <TextField id="standard-basic" placeholder="Название категории" value={this.state.title} onChange={this.handleChange} name="title" />
+                <TextField id="standard-basic" placeholder="Название категории" value={this.state.category} onChange={this.handleChange} name="category" />
                 <br />
                 <TextField id="standard-basic" placeholder="Описание" value={this.state.description} onChange={this.handleChange} name="description" />
                 <br />
@@ -101,9 +101,7 @@ class AddLessonModel extends React.Component {
                   id="datetime-local"
                   label="Next appointment"
                   type="datetime-local"
-                  value={this.state.date}
-                  name="date"
-                  onChange={this.handleChange}
+                  defaultValue="2021-05-24T10:30"
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true

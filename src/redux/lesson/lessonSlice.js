@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     lessons: [],
-    title: [],
+    category: [],
 };
 
 const lessonsSlice = createSlice({
@@ -12,23 +12,23 @@ const lessonsSlice = createSlice({
         createLessonAction(state, action) {
             console.log(action);
             state.lessons.push(action.payload)
-            if (!Object.values(state.title).includes(action.payload.title)){
-                state.title.push(action.payload.title)
+            if (!Object.values(state.category).includes(action.payload.category)){
+                state.category.push(action.payload.category)
             }
         },
         setLessonsAction(state, action) {
             console.log(action);
             state.lessons = action.payload
             for (var i = 0; i < action.payload.length; i++){
-                if (!Object.values(state.title).includes(action.payload[i].title)){
-            state.title.push(action.payload[i].title)
+                if (!Object.values(state.category).includes(action.payload[i].category)){
+            state.category.push(action.payload[i].category)
             }
         }
     },
-        deletetitleAction(state, action) {
-            state.title.splice(state.title.indexOf(action.payload), 1);
+        deleteCategoryAction(state, action) {
+            state.category.splice(state.category.indexOf(action.payload), 1);
             state.lessons = state.lessons.filter((lesson) => 
-                lesson.title !== action.payload
+                lesson.category !== action.payload
             )
             console.log(state.lessons)
     }

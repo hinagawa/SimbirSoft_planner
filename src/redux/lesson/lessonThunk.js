@@ -17,9 +17,9 @@ export function createLesson(data, id) {
     }
 }
 
-export function deleteCategory(title) {
+export function deleteCategory(category) {
     return (dispatch) => {
-        dispatch(lessonActions.deleteCategoryAction(title))
+        dispatch(lessonActions.deleteCategoryAction(category))
     }
 }
 
