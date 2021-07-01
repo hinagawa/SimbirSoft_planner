@@ -75,18 +75,18 @@ class AddLessonModel extends React.Component {
         >
           <div style={getModalStyle()} className={classes.paper}>
             <Typography variant="h6" id="modal-title">
-              Добавьте название категории
+              Создание занятия
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
               <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }} onSubmit={this.onSubmit}>
               <br/>
-                <TextField id="standard-basic" placeholder="category" value={this.state.category} onChange={this.handleChange} name="category" />
+                <TextField id="standard-basic" placeholder="Название категории" value={this.state.category} onChange={this.handleChange} name="category" />
                 <br/>
-                <TextField id="standard-basic" placeholder="description" value={this.state.description} onChange={this.handleChange} name="description" />
+                <TextField id="standard-basic" placeholder="Описание" value={this.state.description} onChange={this.handleChange} name="description" />
                 <br/>
                 <TextField
                   id="date"
-                  label="Date"
+                  label="Дата"
                   name="date"
                   type="date"
                   value={this.state.date}
