@@ -6,7 +6,6 @@ import {AuthProvider} from "../src/Context/auth";
 import PrivateRoute from "./components/PrivateRoute";
 import SignUp from "./pages/SignUp";
 
-import "./styles/globalStyle.css";
 
 function App() {
   return (
