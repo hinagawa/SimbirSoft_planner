@@ -59,12 +59,11 @@ export const SignUp = () => {
   const handleSignUp = useCallback(
     async event => {
       event.preventDefault()
-      const { email, password, userName } = event.target.elements;
+      const { email, password} = event.target.elements;
       try {
         const serviceParams = {
           email: email.value,
-          password: password.value,
-          name: userName.value
+          password: password.value
         }
         setUserData(serviceParams)
         dispatch(register(serviceParams))

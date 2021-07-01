@@ -50,7 +50,7 @@ function Search(props) {
           id="combo-box-demo"
           className={classes.input}
           options={res}
-          getOptionLabel={option => `${option.category} ${option.date}`}
+          getOptionLabel={option => `${option.date} ${option.title} ${option.description}`}
           renderInput={params => (
             <TextField
               {...params}
