@@ -1,23 +1,21 @@
-import React from "react"
+import React, { useCallback, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import Grid from "@material-ui/core/Grid"
-import {Link} from "react-router-dom"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import Box from "@material-ui/core/Box"
-import Container from "@material-ui/core/Container"
-import Typography from "@material-ui/core/Typography"
-import {useCallback, useContext} from "react"
-import {Redirect, useHistory} from "react-router-dom"
-import Avatar from "@material-ui/core/Avatar"
-import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
+import Grid from "@material-ui/core/Grid";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { makeStyles } from "@material-ui/core/styles";
+
 import { login } from "../redux/auth/authThunks";
 
-import {makeStyles} from "@material-ui/core/styles"
-import authService from "../services/authService"
-import {AuthContext} from "../Context/auth"
-import { useDispatch } from "react-redux"
+import { AuthContext } from "../Context/auth";
 
 function Copyright() {
   return (
@@ -29,7 +27,7 @@ function Copyright() {
       {new Date().getFullYear()}
       {"."}
     </Typography>
-  )
+  );
 }
 
 const useStyles = makeStyles(theme => ({
@@ -44,22 +42,23 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1)
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
   }
-}))
+}));
 
 export const SignIn = () => {
+
   const history = useHistory()
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(
     async event => {
       event.preventDefault()
-      const {email, password} = event.target.elements
+      const { email, password } = event.target.elements
       try {
         dispatch(login(email.value, password.value))
         history.push("/calendar")
@@ -68,18 +67,14 @@ export const SignIn = () => {
       }
     },
     [history]
-  )
+  );
 
-  const classes = useStyles()
-  const {currentUser} = useContext(AuthContext)
+  const classes = useStyles();
+  const { currentUser } = useContext(AuthContext);
 
-  // if (currentUser) {
-  //   return <Redirect to="/calendar" />
-  // }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -110,7 +105,6 @@ export const SignIn = () => {
             id="password"
             autoComplete="current-password"
           />
-
           <Button
             type="submit"
             fullWidth
@@ -126,7 +120,7 @@ export const SignIn = () => {
         <Grid item>
           Нет аккаунта? &nbsp;
           <Link to="/signup" variant="body2">
-            {"Зарегистрироваться"}
+            {"Создать аккаунт"}
           </Link>
         </Grid>
       </Grid>
@@ -137,4 +131,4 @@ export const SignIn = () => {
   )
 }
 
-export default SignIn
+export default SignIn;

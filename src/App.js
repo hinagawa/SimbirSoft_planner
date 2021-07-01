@@ -1,11 +1,11 @@
-import {BrowserRouter, Switch, Route} from "react-router-dom"
+import {BrowserRouter, Switch, Route} from "react-router-dom";
 
-import SignIn from "./pages/SignIn"
-import {CalendarPage} from "./pages/CalendarPage"
-import {AuthProvider} from "../src/Context/auth"
-import PrivateRoute from "./components/PrivateRoute"
-import "./styles/globalStyle.css"
-import SignUp from "./pages/SignUp"
+import SignIn from "./pages/SignIn";
+import {CalendarPage} from "./pages/CalendarPage";
+import {AuthProvider} from "../src/Context/auth";
+import PrivateRoute from "./components/PrivateRoute";
+import SignUp from "./pages/SignUp";
+
 
 function App() {
   return (
@@ -22,4 +22,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

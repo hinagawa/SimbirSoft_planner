@@ -3,10 +3,4 @@
     left:300px;
     height: 500px;
     width: 80%;
-
-}
-.react-pdf__Page__canvas {
-    margin: 0 auto;
-    width: 80% !important;
-    height: 100% !important;
 }
