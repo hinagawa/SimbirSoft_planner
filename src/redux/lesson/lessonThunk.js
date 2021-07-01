@@ -17,6 +17,12 @@ export function createLesson(data, id) {
     }
 }
 
+export function deleteCategory(category) {
+    return (dispatch) => {
+        dispatch(lessonActions.deleteCategoryAction(category))
+    }
+}
+
 export function getLessons(id) {
     return async (dispatch) => {
         lessonService.getFetchLessonById(id)

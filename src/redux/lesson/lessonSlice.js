@@ -24,6 +24,13 @@ const lessonsSlice = createSlice({
             state.category.push(action.payload[i].category)
             }
         }
+    },
+        deleteCategoryAction(state, action) {
+            state.category.splice(state.category.indexOf(action.payload), 1);
+            state.lessons = state.lessons.filter((lesson) => 
+                lesson.category !== action.payload
+            )
+            console.log(state.lessons)
     }
 }
 });
