@@ -1,17 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import ReactToPdf from 'react-to-pdf';
+import ReactToPdf from 'react-to-pdf';
 
 import Button from '@material-ui/core/Button';
 
-// import FullCalendar from '@fullcalendar/react';
-// import dayGridPlugin from '@fullcalendar/daygrid';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 import './index.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { createLesson, getLessons } from '../../redux/lesson/lessonThunk';
+import { useDispatch} from 'react-redux';
+import { getLessons } from '../../redux/lesson/lessonThunk';
 import {AuthContext} from "../../Context/auth";
-import { useImperativeHandle } from 'react';
 
 function Calendar(events) {
     const dispatch = useDispatch();
@@ -21,31 +20,25 @@ function Calendar(events) {
 
     useEffect(() => {
         dispatch(getLessons(uid))
-        console.log(uid)
     },[]);
-
-    const kty = () => {
-        dispatch(createLesson({ category: "Русский", description: "ffdgfd", date: "fsl kdms", status: "visited"}, uid))
-    }
 
     const ref = React.createRef();
     return (
         <div className="calendar__container">
-            <button onClick={() => {kty()}}>dsffdsfd</button>
             <div ref={ref}>
-                {/* <FullCalendar
+                <FullCalendar
                     plugins={[dayGridPlugin]}
                     initialView="dayGridMonth"
                     aspectRatio="3"
                     weekends={false}
                     events={events}
-                /> */}
+                />
             </div>
-            {/* <ReactToPdf targetRef={ref} filename="calendar.pdf"  className="react-pdf__Page__canvas">
+            <ReactToPdf targetRef={ref} filename="calendar.pdf"  className="react-pdf__Page__canvas">
                 {({ toPdf }) => (
                     <Button variant="outlined" onClick={toPdf} size="large" color="primary" style={{ "margin": "10px 0px 10px 92%" }}>Экспорт</Button>
                 )}
-            </ReactToPdf> */}
+            </ReactToPdf>
 
         </div >
     )
