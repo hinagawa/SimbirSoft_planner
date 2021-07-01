@@ -2,18 +2,31 @@
 // import {AuthContext} from "../Context/auth"
 // import {useContext} from "react"
 // import authService from "../services/authService"
-import { Grid } from "@material-ui/core";
-import ResponsiveDrawer from "../components/Sidebar";
-import React from "react";
-import Search from "../components/Search";
-import Calendar from "../components/Calendar";
+import {Grid} from "@material-ui/core"
+import ResponsiveDrawer from "../components/Sidebar"
+import React from "react"
+import Search from "../components/Search"
+import Calendar from "../components/Calendar"
 
 export const CalendarPage = () => {
   const events = [
-    { title: 'Математика', date: '2021-06-01' },
-    { title: 'Физика', date: '2021-06-28' }
-  ];
+    {title: "Математика", date: "2021-06-01"},
+    {title: "Физика", date: "2021-06-28"}
+  ]
 
+  // ----------------------------------------------------------- ФИЛЬТР ПРИМЕР ПОИСКА ---------------------
+  // const [catalog, setCatalog] = useState([])
+  // const [filteredCatalog, setFilteredCatalog] = useState([])
+
+  const handleSearch = str => {
+    //   setFilteredCatalog(
+    //     catalog.filter(item =>
+    //       item.strCategory.toLowerCase().includes(str.toLowerCase())
+    //     )
+    //   )
+  }
+
+  // --------------------------------------------------СТАРАЯ ИНФА -----------------------------
   // const {currentUser} = useContext(AuthContext)
   // const uid = currentUser ? currentUser.uid : null
 
@@ -44,17 +57,21 @@ export const CalendarPage = () => {
       <button onClick={getLessons}>get по юзеру</button>
       <button onClick={() => firebase.auth().signOut()}>Sign out</button> */}
       <div className="mainPage">
-      <Grid container direction="row" justify="flex-start" alignItems="flex-start">
-        <Grid item xs={2}>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item xs={2}>
             <ResponsiveDrawer />
+          </Grid>
+          <Grid item xs={8}>
+            <Search cb={handleSearch} />
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-            <Search />
-        </Grid>
-      </Grid>
-      <Calendar  events = {events}/>
-    </div>
-      
+        <Calendar events={events} />
+      </div>
     </>
   )
 }
