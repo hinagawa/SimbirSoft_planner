@@ -58,8 +58,9 @@ export const SignUp = () => {
 
   const handleSignUp = useCallback(
     async event => {
-      event.preventDefault()
-      const { email, password} = event.target.elements;
+      event.preventDefault();
+      const { email, password, rePassword} = event.target.elements;
+      if (password.value === rePassword.value){
       try {
         const serviceParams = {
           email: email.value,
@@ -70,6 +71,9 @@ export const SignUp = () => {
         history.push("/calendar");
       } catch (error) {
         alert(error);
+      }}
+      else{
+        alert("Пароли не совпадают");
       }
     },
     [history]
@@ -123,20 +127,11 @@ export const SignUp = () => {
             margin="normal"
             required
             fullWidth
-            name="rep-password"
+            name="rePassword"
             label="Повторите пароль"
             type="password"
             id="rep-password"
             inputProps={{ maxLength: 20 }}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Запомнить меня"
           />
           <Link to="/">Уже есть аккаунт</Link>
           <Button
