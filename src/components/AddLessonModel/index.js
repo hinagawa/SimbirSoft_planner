@@ -93,9 +93,10 @@ class AddLessonModel extends React.Component {
             <Typography variant="subtitle1" id="simple-modal-description">
               <form className={classes.root} noValidate autoComplete="off" style={{ "display": "flex", "flex-direction": "column" }} onSubmit={this.onSubmit}>
                 <br />
-                <TextField id="standard-basic" placeholder="Название категории" value={this.state.category} onChange={this.handleChange} name="category" />
+                <TextField id="standard-basic" placeholder="Название категории" 
+            inputProps={{ maxLength: 20 }} value={this.state.category} onChange={this.handleChange} name="category" />
                 <br />
-                <TextField id="standard-basic" placeholder="Описание" value={this.state.description} onChange={this.handleChange} name="description" />
+                <TextField id="standard-basic" inputProps={{ maxLength: 256 }} placeholder="Описание" value={this.state.description} onChange={this.handleChange} name="description" />
                 <br />
                 <TextField
                   id="datetime-local"
