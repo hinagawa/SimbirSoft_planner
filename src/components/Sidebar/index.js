@@ -21,6 +21,7 @@ import Button from '@material-ui/core/Button';
 import { deleteCategory } from '../../redux/lesson/lessonThunk';
 import { AuthContext } from '../../Context/auth';
 import AddLessonModel from '../AddLessonModel';
+import lessonService from '../../services/lessonService';
 
 const drawerWidth = 240;
 
@@ -75,6 +76,7 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const categories = useSelector((state) => state.lessonReducer.category);
+  const lessons = useSelector(state => state.lessonReducer.lessons);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -86,6 +88,11 @@ function ResponsiveDrawer(props) {
 
   const deleteText = () => {
     dispatch(deleteCategory(category));
+    lessons.forEach((lesson) => {
+      if(lesson.category === category) {
+        lessonService.deleteLesson(uid, lesson.id);
+      }
+    })
     setOpen(false);
   }
 
