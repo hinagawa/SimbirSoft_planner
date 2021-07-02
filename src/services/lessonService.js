@@ -32,9 +32,18 @@ const createFetchLessonById = async (
   }
 };
 
+const deleteLesson = async (uid, id) => {
+try {
+firebase.database().ref(`users/${uid}/lessons/${id}`).remove()
+} catch (error) {
+  throw error;
+}
+};
+
 const lessonService = {
   getFetchLessonById,
-  createFetchLessonById
+  createFetchLessonById,
+  deleteLesson
 };
 
 export default lessonService;
