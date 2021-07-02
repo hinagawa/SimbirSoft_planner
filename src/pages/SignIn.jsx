@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import Grid from "@material-ui/core/Grid";
@@ -14,6 +14,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { login } from "../redux/auth/authThunks";
+import authService from "../services/authService"
 
 import { AuthContext } from "../Context/auth";
 
@@ -60,7 +61,8 @@ export const SignIn = () => {
       event.preventDefault()
       const { email, password } = event.target.elements
       try {
-        dispatch(login(email.value, password.value))
+        await authService.login(email.value, password.value);
+        dispatch(login(email.value, password.value));
         history.push("/calendar")
       } catch (error) {
         alert(error)
@@ -71,7 +73,9 @@ export const SignIn = () => {
 
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext);
-
+  if (currentUser) {
+    return <Redirect to="/calendar" />
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
