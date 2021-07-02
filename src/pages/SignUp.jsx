@@ -64,13 +64,13 @@ export const SignUp = () => {
         const serviceParams = {
           email: email.value,
           password: password.value
-        }
-        setUserData(serviceParams)
-        dispatch(register(serviceParams))
-
-        history.push("/")
+        };
+        setUserData(serviceParams);
+        await authService.register(serviceParams)
+        dispatch(register(serviceParams));
+        history.push("/");
       } catch (error) {
-        alert(error)
+        alert(error);
       }
     },
     [history]
@@ -78,7 +78,6 @@ export const SignUp = () => {
   const uid = currentUser ? currentUser.uid : null;
   useEffect(() => {
     if (uid) {
-      console.log(uid)
       async function fetchUserById() {
         await authService.setUserDataById(userData, uid)
       }
