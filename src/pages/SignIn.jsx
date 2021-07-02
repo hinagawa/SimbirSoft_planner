@@ -62,6 +62,7 @@ export const SignIn = () => {
       const { email, password } = event.target.elements
       try {
         await authService.login(email.value, password.value);
+        dispatch(login(email.value, password.value));
         history.push("/calendar")
       } catch (error) {
         alert(error)

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 import firebase from 'firebase';
 
@@ -95,10 +95,11 @@ function ResponsiveDrawer(props) {
     })
     setOpen(false);
   }
-
   function signOut() {
     firebase.auth().signOut();
-    history.push("/");
+  }
+  if (!currentUser) {
+    return <Redirect to="/" />
   }
   const drawer = (
     <div>
