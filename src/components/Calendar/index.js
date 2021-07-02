@@ -31,7 +31,7 @@ function Calendar(events) {
       newJson.push(newObject);
     }
     const data = newJson;
-    const fileName = "mSychedule";
+    const fileName = "mySchedule";
     const exportType = 'xls';
 
     function exportToExcel () {
