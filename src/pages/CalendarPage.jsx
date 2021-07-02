@@ -9,11 +9,15 @@ import Calendar from "../components/Calendar";
 
 export const CalendarPage = () => {
   const events = useSelector((state) => state.lessonReducer.lessons);
-  console.log(events);
-  // const events = [
-  //   {title: "Математика", date: "2021-06-01"},
-  //   {title: "Физика", date: "2021-06-28"}
-  // ];
+  const newEvents = [];
+  for (let x of events.keys()) {
+    let newObject = {
+      title: events[x].category,
+      date: events[x].date
+    };
+    newEvents.push(newObject);
+  }
+  
   return (
     <>
       <div className="mainPage">
@@ -30,7 +34,7 @@ export const CalendarPage = () => {
             <Search  />
           </Grid>
         </Grid>
-        <Calendar events={events} />
+        <Calendar events={newEvents} />
       </div>
     </>
   );
