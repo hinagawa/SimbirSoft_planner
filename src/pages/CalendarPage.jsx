@@ -17,7 +17,7 @@ export const CalendarPage = () => {
     };
     newEvents.push(newObject);
   }
-  
+
   return (
     <>
       <div className="mainPage">
