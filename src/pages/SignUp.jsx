@@ -67,7 +67,6 @@ export const SignUp = () => {
         };
         setUserData(serviceParams);
         await authService.register(email.value, password.value)
-        dispatch(register(serviceParams));
         history.push("/calendar");
       } catch (error) {
         alert(error);
